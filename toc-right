@@ -3,7 +3,8 @@
 ##
 ## Developed by: Benjamin DUPUIS
 ## Date created: 05/08/2011
-## Date Updated: 30/11/2016
+## Date Updated: 13/04/2019
+## Updated by: Kenrick Zhou
 ## Installed by: Benjamin DUPUIS
 ## @param Maxlvl:title=MaxLvl|type=int|required=true|desc=Max Level|default=5
 ## @param Float:title=Float|type=boolean|required=true|desc=Float/Fixed Position|default=true
@@ -11,56 +12,55 @@
 
 #set($globalHelper=$action.getHelper())
 #if ($content.id == $globalHelper.getPage().id)
-
-#if (!$paramMaxlvl)
-  #set ($paramMaxlvl=5)
-#end
-
-#set($mytoc=$globalHelper.renderConfluenceMacro("{toc:maxLevel=$paramMaxlvl}"))
-
-#if ($paramFloat == true)
-  #if ($paramHidable == true)
-    <div id="show_customtoc" style="right:15px; top:100px; position:fixed; z-index:99; margin-left:8px; padding:10px; background:#ae0015; border-radius: 3px; writing-mode: vertical-lr; display: none">
-      <a style="color:white; cursor:pointer" onclick="jQuery('#customtoc').toggle(true); jQuery('#show_customtoc').toggle(false)">Show Table Of Contents</a>
-    </div>
+  #if (!$paramMaxlvl)
+    #set ($paramMaxlvl=5)
   #end
-<div id="customtoc" style="right:25px; top:100px; position:fixed; max-height: 80%; z-index:99; overflow: auto; margin-left:8px;background:white">
-#else
-  #if ($paramHidable == true)
-    <div id="show_customtoc" style="float:right; margin-left:8px; padding:10px; background:#ae0015; border-radius: 3px; writing-mode: vertical-lr; display: none">
-      <a style="color:white; cursor:pointer" onclick="jQuery('#customtoc').toggle(true); jQuery('#show_customtoc').toggle(false)">Show Table Of Contents</a>
-    </div>
-  #end
-<div id="customtoc" style="float:right; margin-left:8px;background:white">
-#end
-  <table>
-    <thead>
-      <tr>
-       <th>Table of Contents
-#if ($paramHidable == true)
-           <a style="margin: -5px; padding: 0; float: right; font-weight:bold; font-size:2em; line-height: 1em" onclick="jQuery('#customtoc').toggle(false); jQuery('#show_customtoc').toggle(true)">×</a>
-#end
-       </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-         <td>
-           $mytoc
-         </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
-#if ($paramHidable == true)
-<script type="text/javascript">
-     $(document).ready(function(){
-        $("#customtoc a").click(function(event) {
-          jQuery('#customtoc').toggle(false);
-          jQuery('#show_customtoc').toggle(true);
-        });
-     });
-#end
-</script>
+  #set($mytoc=$globalHelper.renderConfluenceMacro("{toc:maxLevel=$paramMaxlvl}"))
+
+  #if ($paramFloat == true)
+    #if ($paramHidable == true)
+      <div id="show_customtoc" style="right:15px; top:120px; position:fixed; z-index:99; margin-left:8px; padding:10px; background:#ae0015; border-radius: 3px; writing-mode: vertical-lr; display: none">
+        <a style="color:white; cursor:pointer" onclick="jQuery('#customtoc').toggle(true); jQuery('#show_customtoc').toggle(false)">显 示 目 录</a>
+      </div>
+    #end
+  <div id="customtoc" style="right:40px; top:120px; position:fixed; max-height: 80%; z-index:99; overflow: auto; margin-left:8px;background:rgba(229, 232, 232, 0.4);">
+  #else
+    #if ($paramHidable == true)
+      <div id="show_customtoc" style="float:right; margin-left:8px; padding:10px; background:#ae0015; border-radius: 3px; writing-mode: vertical-lr; display: none">
+        <a style="color:white; cursor:pointer" onclick="jQuery('#customtoc').toggle(true); jQuery('#show_customtoc').toggle(false)">显 示 目 录</a>
+      </div>
+    #end
+  <div id="customtoc" style="float:right; margin-left:8px;background:rgba(229, 232, 232, 0.4)">
+  #end
+    <table>
+      <thead>
+        <tr>
+         <th style="text-align:center;">目 录
+  #if ($paramHidable == true)
+           <a style="margin: -5px; padding:0; float: right; font-weight:bold; font-size:2em; line-height: 1em" onclick="jQuery('#customtoc').toggle(false); jQuery('#show_customtoc').toggle(true)">×</a>
+  #end
+         </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+           <td style="padding-right:20px">
+             $mytoc
+           </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  #if ($paramHidable == true)
+  <script type="text/javascript">
+       $(document).ready(function(){
+          $("#customtoc a").click(function(event) {
+##            jQuery('#customtoc').toggle(false);
+##            jQuery('#show_customtoc').toggle(true);
+          });
+       });
+  </script>
+  #end
 #end
